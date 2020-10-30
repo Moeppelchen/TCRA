@@ -94,7 +94,8 @@ function gifAlert(user, gif, audio, text) {
     if(audio) {
       audio.play();
     }
-    var content = user.replace(/</g, "&lt;").replace(/>/g, "&gt;") + text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var content = user + text;
+    content = content..replace(/</g, "&lt;").replace(/>/g, "&gt;");
     container.innerHTML = `
       <h1 class="text-shadows">${content}</h1>
       <img src="${gif}" />
