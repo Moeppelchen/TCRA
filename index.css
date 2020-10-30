@@ -21,6 +21,10 @@ img {
   text-align: center;
 }
 
+.alerts h1 {
+  font-size: 50px;
+}
+
 .content {
   display: flex;
   align-content: center;
