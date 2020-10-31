@@ -266,11 +266,6 @@
           console.log( "onReward default handler" );
         }
       },
-      onReward2: function( user, reward, cost, message, extra ) {
-        if( comfyJS.isDebug ) {
-          console.log( "onReward2 default handler" );
-        }
-      },
       onConnected: function( address, port, isFirstConnect ) {
       },
       onReconnect: function( reconnectCount ) {
