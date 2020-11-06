@@ -1,13 +1,16 @@
 :root {
   --text: #f6aca2;
+  --textOutlineColor: #000000;
+  --textOutlineWidth: 1px;
   --shadow-part1: #f49b90;
   --shadow-part2: #f28b7d;
   --shadow-part3: #f07a6a;
   --shadow-part4: #ee6352;
+  --fontFamily: bungee, sans-serif;
 }
 
 body {
-  font-family: canada-type-gibson, sans-serif;
+  font-family: var(--fontFamily);
   font-size: .5rem;
   font-weight: 300;
   font-size: 1.25rem;
@@ -19,18 +22,15 @@ body {
 
 img {
   border-radius: 8px;
-  margin: auto;
+  margin: auto;  
+  max-width: 75%;
 }
 
 .alerts {
   display: grid;
   justify-content: center;
-  width: 1040px;
+  width: 75vw;
   text-align: center;
-}
-
-.alerts h1 {
-  font-size: 50px;
 }
 
 .content {
@@ -40,17 +40,18 @@ img {
 }
 
 .text-shadows {
-  text-shadow: 3px 3px 0 var(--shadow-part1), 6px 6px 0 var(--shadow-part2),
-    9px 9px var(--shadow-part3), 12px 12px 0 var(--shadow-part3);
-  font-family: bungee, sans-serif;
-  font-size: calc(.25rem + 5vw);
-  font-weight: 400;
+  -webkit-text-stroke-width: var(--textOutlineWidth);
+  -webkit-text-stroke-color: var(--textOutlineColor);
+  text-shadow: 3px 3px 0 var(--shadow-part1), 6px 6px 0 var(--shadow-part2), 9px 9px var(--shadow-part3), 12px 12px 0 var(--shadow-part3);
+  font-family: var(--fontFamily);
+  font-size: 3vw;
+  font-weight: bold;
   text-transform: uppercase;
   text-align: center;
   margin: 0;
   color: var(--text);
-  animation: shadows 1.5s ease-in infinite, move 1.5s ease-in infinite;
-  letter-spacing: 0.4rem;
+  animation: shadows 1.5s ease-in infinite, move 3s ease-in infinite;
+  letter-spacing: 0.25rem;
 }
 
 
