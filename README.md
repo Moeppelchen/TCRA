@@ -7,7 +7,7 @@ and is based on the initial work of [bdougie's beybot](https://github.com/open-s
 
 ## Installation
 
-Unzip 'TCRA-TCRA-0.1.zip' to a folder of your choice.
+Unzip downloaded zip to a folder of your choice.
 Edit settings.js to your likings.
 Create commands in /cfg/alerts/commands.js based on the given Example.
 Create redemptions in /cfg/alerts/redemptions.js based on the given Example.
