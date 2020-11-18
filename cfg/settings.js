@@ -13,7 +13,10 @@ const settings = {
         // Font Families to load into cache on load to use in alerts
         // Default: ["Bungee", "Open Sans"]
         // https://fonts.google.com/
-        "fontFamilies": ["Bungee", "Open Sans"],
+        "fontFamilies": ["Open Sans", "Bungee", "Big Shoulders Stencil Text"],
+        // Default font family from fontFamilies
+        // 1 -> first entry, 2 -> second entry, 3 -> ...
+        "defaultFontFamily": 2,
         // Default text color
         // Falls back to default if not set
         // Example Color: black or #000000 or rgb(0, 0, 0)
@@ -32,6 +35,7 @@ const settings = {
         // Example Color: black or #000000 or rgb(0, 0, 0)
         // https://htmlcolorcodes.com/color-picker/
         "textOutlineColor": "",
+        // Example Width: 0.75px | Default: 1px
         "textOutlineWidth": ""
     },
     // Default duration in seconds the !pause command stops the queue

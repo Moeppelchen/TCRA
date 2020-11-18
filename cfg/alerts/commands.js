@@ -4,7 +4,7 @@ const customCommands = [
         // example: "welcome"
         // used in chat with !welcome
         "name": "Replace_With_Command_Name",
-        // Command access 
+        // Command access
         // 0 broadcaster < 1 mod < 2 subscriber < 3 vip < 4 all
         "access": "4",
         // Text to be displayed
@@ -34,8 +34,8 @@ const customCommands = [
         "fontSettings": {
             // Font family to use
             // see settings.js for Info
-            // 0 = first entry, 1 = second entry, 2 = third entry, ...
-            "fontFamily": 0,
+            // 1 = first entry, 2 = second entry, 3 = third entry, ...
+            "fontFamily": 1,
             // Set text color
             // Leave empty to use default set in settings.js
             // Example Color: black or #000000 or rgb(0, 0, 0)
@@ -49,12 +49,12 @@ const customCommands = [
             "shadowColor2": "",
             "shadowColor3": "",
             "shadowColor4": "",
-            // Text Outline Color and Width
-            // Leave empty to use default set in settings.js
+            // Default Text Outline Color and Width
+            // Falls back to default if not set
             // Example Color: black or #000000 or rgb(0, 0, 0)
             // https://htmlcolorcodes.com/color-picker/
-            // Example Width: 1px
             "textOutlineColor": "",
+            // Example Width: 0.75px | Default: 1px
             "textOutlineWidth": ""
         }
     },

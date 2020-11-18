@@ -12,8 +12,9 @@ const textOutlineColor = settings.fontSettings.textOutlineColor;
 const textOutlineWidth = settings.fontSettings.textOutlineWidth;
 
 const fontFamilies = settings.fontSettings.fontFamilies; // Sets default font families to load into cache
+const defaultFontFamily = settings.fontSettings.defaultFontFamily;
 
-var PAUSE_DURATION = settings.durationPause * 1000; // Default pause duration 
+var PAUSE_DURATION = settings.durationPause * 1000; // Default pause duration
 var DISPLAY_DURATION = settings.durationDisplay * 1000; //Default showing duration
 
 const customRedeemAlerts = customRedemptions;
@@ -32,7 +33,7 @@ const wait = async duration => {
 
 ComfyJS.Init(twitchTvHandle, oAuth, channelsToConnectTo, true);
 
-SetFontSettings(settings.fontSettings);
+//SetFontSettings(settings.fontSettings);
 
 WebFont.load({
   google: {
@@ -63,12 +64,12 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
         console.log(customCommandAlerts[i]);
         var access = customCommandAlerts[i].access;
         if(flags.broadcaster) {
-          SetFontSettings(customCommandAlerts[i].fontSettings);
+          //SetFontSettings(customCommandAlerts[i].fontSettings);
           InitAlert(user, message, customCommandAlerts[i]);
         } else if(access == 4 || (flags.mod && access > 0) || (flags.subscriber && access > 1) || (flags.vip && access > 2)) {
           console.log(extra.sinceLastCommand.user);
           if(extra.sinceLastCommand.user == 0 || (extra.sinceLastCommand.user > (customCommandAlerts[i].cooldown * 1000)))  {
-            SetFontSettings(customCommandAlerts[i].fontSettings);
+            //SetFontSettings(customCommandAlerts[i].fontSettings);
             InitAlert(user, message, customCommandAlerts[i]);
           }
         } else {
@@ -84,7 +85,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
 ComfyJS.onReward = ( user, reward, cost, extra ) => {
   for (var i = 0; i < customRedeemAlerts.length; i++) {
     if(reward == customRedeemAlerts[i].name) {
-      SetFontSettings(customRedeemAlerts[i].fontSettings);
+      //SetFontSettings(customRedeemAlerts[i].fontSettings);
       InitAlert(user, extra, customRedeemAlerts[i]);
       break;
     }
@@ -98,28 +99,30 @@ ComfyJS.onChat = (user, message, flags, self, extra) => {
 };
 
 function InitAlert(user, msg, opts) {
-  var sound = null; 
+  var sound = null;
   if (opts.sound != "") {
     sound = new Audio(opts.sound);
   }
   content = opts.text.replace(/#([^#]+)#/g, msg);
   DISPLAY_DURATION = opts.duration * 1000;
-  new gifAlert(user, opts.gif, sound, content, opts.volume);
+  new gifAlert(user, opts.gif, sound, content, opts.volume, opts.fontSettings);
 }
 
-function gifAlert(user, gif, audio, text, vol) {
+function gifAlert(user, gif, audio, text, vol, font) {
+  var animation = "neon";
   queue.add(async () => {
     if(audio) {
       audio.volume = vol;
       audio.play();
     }
+    SetFontSettings(font);
     var content = "<br><br>";
     if(text != "") {
       content = user + text;
       content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    } 
+    }
     container.innerHTML = `
-      <h1 class="text-shadows">${content}</h1>
+      <h1 class="text-${animation}">${content}</h1>
       <img src="${gif}" />
     `;
     container.style.opacity = 1;
@@ -149,14 +152,14 @@ function getSoundAndFadeAudio(audio) {
 
 function SetFontSettings(opts) {
   console.log(opts);
-  if(opts.fontFamilies) {
+  /*if(opts.fontFamilies) {
     console.log(opts.fontFamilies);
-    opts['fontFamily'] = opts.fontFamilies[0];
-  }
+    opts['fontFamily'] = opts.fontFamilies[defaultFontFamily];
+  }*/
   if(opts.fontFamily != "") {
-    root.style.setProperty("--fontFamily", opts.fontFamily);
+    root.style.setProperty("--fontFamily", fontFamilies[(opts.fontFamily-1)]);
   } else {
-    root.style.setProperty("--fontFamily", fontFamilies[0]);
+    root.style.setProperty("--fontFamily", fontFamilies[defaultFontFamily]);
   }
   if(opts.textColor != "") {
     root.style.setProperty("--text", opts.textColor);
@@ -186,16 +189,16 @@ function SetFontSettings(opts) {
   if(opts.textOutlineColor != "") {
     root.style.setProperty("--textOutlineColor", opts.textOutlineColor);
   }else {
-    root.style.setProperty("--shadow-part4", textOutlineColor);
+    root.style.setProperty("--textOutlineColor", textOutlineColor);
   }
   if(opts.textOutlineWidth != "") {
     root.style.setProperty("--textOutlineWidth", opts.textOutlineWidth);
   }else {
-    root.style.setProperty("--shadow-part4", textOutlineWidth);
+    root.style.setProperty("--textOutlineWidth", textOutlineWidth);
   }
 }
 
-function testAlert(text = "", font = 0) {
+function testAlert(text = "", font = defaultFontFamily) {
   const testAlert = {
     "name": "Test",
     "access": 0,
@@ -216,6 +219,6 @@ function testAlert(text = "", font = 0) {
       "textOutlineWidth": "1px"
     }
   }
-  SetFontSettings(testAlert.fontSettings);
+  //SetFontSettings(testAlert.fontSettings);
   InitAlert("An ordinary turtle", text, testAlert);
 }

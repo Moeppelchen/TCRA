@@ -1,6 +1,6 @@
 # TCRA aka TwitchCommandAndRedemptionAlert
 
-TCRA is a Twitch overlay alert bot for custom commands and redemptions.
+TCRA is a Twitch overlay alert bot for custom commands and redemptions (channel points).
 
 It's build on the [ComfyJS](https://github.com/instafluff/ComfyJS) (a wrapper around [tmi.js](https://github.com/tmijs/tmi.js))
 and is based on the initial work of [bdougie's beybot](https://github.com/open-sauced/beybot).
@@ -8,58 +8,64 @@ and is based on the initial work of [bdougie's beybot](https://github.com/open-s
 ## Installation
 
 Unzip downloaded zip to a folder of your choice.
+
 Edit settings.js to your likings.
-Create commands in /cfg/alerts/commands.js based on the given Example.
-Create redemptions in /cfg/alerts/redemptions.js based on the given Example.
 
-Create a new 'Browser Source' in your streaming software and change the path to lead to the 'index.html'.
+Create commands in ./cfg/alerts/commands.js based on the given Example.
 
+Create redemptions in ./cfg/alerts/redemptions.js based on the given Example.
+
+Create a new 'Browser Source' in your streaming software and change the path to the included 'index.html'.
 
 ## Usage ./cfg/settings.js
 
 ```js
 const settings = {
-        // User or Botname to use
-        "user": "REPLACE",
-        // Twitch Access Token
-        // https://twitchtokengenerator.com/ | don't put "oauth"
-        "oAuth": "REPLACE",
-        // Channels the bot should listen to
-        // In case of multiple channels do: ["channel1", "channel2", ...]
-        "channels": ["REPLACE"],
-        // Default text color settings if none defined in command or redemption settings
+    // User or Botname to use
+    "user": "REPLACE",
+    // Twitch Access Token
+    // https://twitchtokengenerator.com/ | don't put "oauth"
+    "oAuth": "REPLACE",
+    // Channels the bot should listen to
+    // In case of multiple channels do: ["channel1", "channel2", ...]
+    "channels": ["REPLACE"],
+    // Default text color settings if none defined in command or redemption settings
+    // https://htmlcolorcodes.com/color-picker/
+    "fontSettings": {
+        // Font Families to load into cache on load to use in alerts
+        // Default: ["Bungee", "Open Sans"]
+        // https://fonts.google.com/
+        "fontFamilies": ["Open Sans", "Bungee", "Big Shoulders Stencil Text"],
+        // Default font family from fontFamilies
+        // 1 -> first entry, 2 -> second entry, 3 -> ...
+        "defaultFontFamily": 2,
+        // Default text color
+        // Falls back to default if not set
+        // Example Color: black or #000000 or rgb(0, 0, 0)
         // https://htmlcolorcodes.com/color-picker/
-        "fontSettings": {
-            // Font Families to load into cache on load to use in alerts
-            // Default: ["Bungee", "Open Sans"]
-            // https://fonts.google.com/
-            "fontFamilies": ["Bungee", "Open Sans"],
-            // Default text color
-            // Falls back to default if not set
-            // Example Color: black or #000000 or rgb(0, 0, 0)
-            // https://htmlcolorcodes.com/color-picker/
-            "textColor": "",
-            // Default Shadow colors
-            // Falls back to default if not set
-            // Example Color: black or #000000 or rgb(0, 0, 0)
-            // https://htmlcolorcodes.com/color-picker/
-            "shadowColor1": "",
-            "shadowColor2": "",
-            "shadowColor3": "",
-            "shadowColor4": "",
-            // Default Text Outline Color and Width
-            // Falls back to default if not set
-            // Example Color: black or #000000 or rgb(0, 0, 0)
-            // https://htmlcolorcodes.com/color-picker/
-            "textOutlineColor": "",
-            "textOutlineWidth": ""
-        },
-        // Default duration in seconds the !pause command stops the queue
-        // Default: 30
-        "durationPause": 30,
-        // Default duration alerts are displayed if not defined in command or redemption settings
-        // Default: 10
-        "durationDisplay": 10
+        "textColor": "",
+        // Default Shadow colors
+        // Falls back to default if not set
+        // Example Color: black or #000000 or rgb(0, 0, 0)
+        // https://htmlcolorcodes.com/color-picker/
+        "shadowColor1": "",
+        "shadowColor2": "",
+        "shadowColor3": "",
+        "shadowColor4": "",
+        // Default Text Outline Color and Width
+        // Falls back to default if not set
+        // Example Color: black or #000000 or rgb(0, 0, 0)
+        // https://htmlcolorcodes.com/color-picker/
+        "textOutlineColor": "",
+        // Example Width: 0.75px | Default: 1px
+        "textOutlineWidth": ""
+    },
+    // Default duration in seconds the !pause command stops the queue
+    // Default: 30
+    "durationPause": 30,
+    // Default duration alerts are displayed if not defined in command or redemption settings
+    // Default: 10
+    "durationDisplay": 10
 };
 ```
 
@@ -72,11 +78,11 @@ const customCommands = [
         // example: "welcome"
         // used in chat with !welcome
         "name": "Replace_With_Command_Name",
-        // Command access 
+        // Command access
         // 0 broadcaster < 1 mod < 2 subscriber < 3 vip < 4 all
         "access": "4",
         // Text to be displayed
-        // For Commands with custom text input use #REPLACEWITHCONTENT# 
+        // For Commands with custom text input use #REPLACEWITHCONTENT#
         // where you want to have the user input to the Alert
         "text": " Replace_With_Custom_Text",
         // Either a link or a file in the current folder
@@ -102,8 +108,8 @@ const customCommands = [
         "fontSettings": {
             // Font family to use
             // see settings.js for Info
-            // 0 = first entry, 1 = second entry, 2 = third entry, ...
-            "fontFamily": 0,
+            // 1 = first entry, 2 = second entry, 3 = third entry, ...
+            "fontFamily": 1,
             // Set text color
             // Leave empty to use default set in settings.js
             // Example Color: black or #000000 or rgb(0, 0, 0)
@@ -117,12 +123,12 @@ const customCommands = [
             "shadowColor2": "",
             "shadowColor3": "",
             "shadowColor4": "",
-            // Text Outline Color and Width
-            // Leave empty to use default set in settings.js
+            // Default Text Outline Color and Width
+            // Falls back to default if not set
             // Example Color: black or #000000 or rgb(0, 0, 0)
             // https://htmlcolorcodes.com/color-picker/
-            // Example Width: 1px
             "textOutlineColor": "",
+            // Example Width: 0.75px | Default: 1px
             "textOutlineWidth": ""
         }
     },
@@ -182,8 +188,8 @@ const customRedemptions = [
         "fontSettings": {
             // Font family to use
             // see settings.js for Info
-            // 0 = first entry, 1 = second entry, 2 = third entry, ...
-            "fontFamily": 0,
+            // 1 = first entry, 2 = second entry, 3 = third entry, ...
+            "fontFamily": 1,
             // Set text color
             // Leave empty to use default set in settings.js
             // Example Color: black or #000000 or rgb(0, 0, 0)
@@ -197,12 +203,12 @@ const customRedemptions = [
             "shadowColor2": "",
             "shadowColor3": "",
             "shadowColor4": "",
-            // Text Outline Color and Width
-            // Leave empty to use default set in settings.js
+            // Default Text Outline Color and Width
+            // Falls back to default if not set
             // Example Color: black or #000000 or rgb(0, 0, 0)
             // https://htmlcolorcodes.com/color-picker/
-            // Example Width: 1px
             "textOutlineColor": "",
+            // Example Width: 0.75px | Default: 1px
             "textOutlineWidth": ""
         }
     },
@@ -230,12 +236,18 @@ const customRedemptions = [
 
 ## Testing in Browser
 
-Just open the 'index.html' in a Browser after adjusting the settings and either use the channelpoints or commands in the defined channel
+Just open the 'index.html' in a Browser after adjusting the settings and
+
+use the channelpoints or commands in the defined channel
+
 OR
-open the Browser developer console and try
+
+open the Browser developer console and try:
+
+
 ```js
 // first var is text that is shown and second is one of the defined fonts
-testAlert("TestText", 0);
+testAlert("TestText", 1);
 ```
 
 ## Contributing

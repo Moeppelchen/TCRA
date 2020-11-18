@@ -50,10 +50,43 @@ img {
   text-align: center;
   margin: 0;
   color: var(--text);
-  animation: shadows 1.5s ease-in infinite, move 3s ease-in infinite;
   letter-spacing: 0.25rem;
+  animation: shadows 1.5s ease-in infinite, move 3s ease-in infinite;
 }
 
+.text-shining {
+  position: relative;
+  font-family: var(--fontFamily);
+  font-size: 3vw;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.25rem;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: shining 3s linear infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+.text-neon {
+  -webkit-text-stroke-width: var(--textOutlineWidth);
+  -webkit-text-stroke-color: var(--textOutlineColor);
+  font-family: var(--fontFamily);
+  font-size: 3vw;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.25rem;
+  animation: glow 2s ease-in-out infinite alternate;
+}
 
 .fade-in {
   animation: fadeIn ease 6s;
@@ -87,6 +120,7 @@ img {
   0% {opacity:0;}
   100% {opacity:1;}
 }
+
 @keyframes shadows {
   0% {
     text-shadow: none;
@@ -151,3 +185,25 @@ img {
   }
 }
 
+@keyframes shining {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
+
+@keyframes glow {
+  from {
+   color: var(--text);
+ text-shadow: 0 0 10px var(--shadow-part1), 0 0 20px var(--shadow-part1), 0 0 30px var(--shadow-part1),
+  0 0 40px var(--shadow-part1), 0 0 50px var(--shadow-part1), 0 0 60px var(--shadow-part1), 0 0 70px var(--shadow-part1), 0 0 90px var(--shadow-part1);
+}
+
+to {
+  color: gray;
+ text-shadow: 0 0 20px var(--shadow-part1), 0 0 30px var(--shadow-part1), 0 0 40px var(--shadow-part1), 0 0 50px var(--shadow-part1),
+  0 0 60px var(--shadow-part1), 0 0 70px var(--shadow-part1), 0 0 80px var(--shadow-part1), 0 1 90px var(--shadow-part1);
+}
+}
